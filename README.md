@@ -13,27 +13,29 @@ Esta plantilla prepara un repositorio publico e individual para proyectos academ
 
 ## Datos del proyecto
 
-- Estudiante: [PENDIENTE]
-- Materia, comision y anio: [PENDIENTE]
-- Nombre del proyecto: [PENDIENTE]
-- Motor y version: [PENDIENTE]
-- Estado: [PENDIENTE]
+- Estudiante: Facundo Castillo.
+- Materia, comision y anio: Programación de Inteligencia Artificial
+y Patrones de Comportamiento.
+- Nombre del proyecto: Bounce-Off Battle.
+- Motor y version: Phaser 4.2.1.
+- Estado: Planificación
 
 ## Descripcion
 
-[Explica brevemente el juego o prototipo y su objetivo actual.]
+Bounce-Off Battle es una experiencia de juego arcade, con un alcance de partidas de 1-2 minutos, donde dos jugadores, o un jugador contra una CPU se enfrentan tomando control de una paleta c/u, y deberán reflejar una pelota entre ellos para evitar que esta los sobrepase y destruya uno de los bloques que se encuentran tras de ellos. Quien destruya todos los bloques del otro jugador primero resultará el victor de la partida.
 
 ## Requisitos y ejecucion
 
-[Indica el motor, herramientas, versiones y pasos necesarios para abrir o ejecutar el proyecto.]
+Al ser hecho con Phaser, será lanzado una versión ejecutable en la plataforma Vercel. Para jugar se requerirá un teclado.
 
 ## Controles
 
-[Describe los controles disponibles o indica que todavia no existen.]
+Paleta Izquierda (Jugador 1): Teclas A y D, para mover la paleta hacia arriba o abajo respectivamente.
+Paleta Derecha (Jugador 2 || CPU): Teclas Flecha Izquierda y Derecha, para mover la paleta hacia arriba o abajo respectivamente.
 
 ## Creditos
 
-[Declara assets, sonidos, tipografias, plugins, codigo, referencias y licencias de terceros.]
+Todos los assets del juego serán objetos y/o tipografías base proveídas por defecto del motor de Phaser.
 
 ## Entrega o demostracion
 
