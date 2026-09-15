@@ -1,16 +1,3 @@
-# Plantilla PIAPC para repositorios individuales
-
-Esta plantilla prepara un repositorio publico e individual para proyectos academicos de videojuegos. Es independiente del motor, lenguaje y tipo de juego.
-
-## Como usarla
-
-1. Crea un repositorio individual desde esta plantilla y conserva el commit inicial.
-2. Completa los datos de este archivo y de `GDD.md` cuando la consigna defina el problema de diseno.
-3. Agrega el proyecto creado con el motor elegido, sin mezclar archivos de otros motores.
-4. Incorpora al `.gitignore` las reglas oficiales o recomendadas para ese motor.
-5. Completa los documentos de `docs/` en el orden indicado por `docs/README.md`.
-6. Conserva commits pequenos y revisables durante el desarrollo.
-
 ## Datos del proyecto
 
 - Estudiante: Facundo Castillo.
@@ -26,7 +13,7 @@ Bounce-Off Battle es una experiencia de juego arcade, con un alcance de partidas
 
 ## Requisitos y ejecucion
 
-Al ser hecho con Phaser, será lanzado una versión ejecutable en la plataforma Vercel. Para jugar se requerirá un teclado.
+Al ser hecho con Phaser, será lanzado una versión ejecutable en la plataforma Vercel. Para jugar se requerirá un teclado y un ratón o un mousepad.
 
 ## Controles
 
@@ -38,5 +25,6 @@ Paleta Derecha (Jugador 2 || CPU): Teclas Flecha Izquierda y Derecha, para mover
 Todos los assets del juego son objetos y tipografías base proveídas por defecto del motor de Phaser.
 
 ## Entrega o demostracion
+piacp-parcial-1-bounce-off-battle.vercel.app
 
 Pendiente (acción del estudiante): agregar aquí el enlace de compilación o publicación cuando se despliegue en Vercel.
