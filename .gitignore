@@ -1,8 +1,31 @@
 # Reglas comunes. Agrega aqui el .gitignore oficial o recomendado del motor elegido.
+# --- Dependencias de Node ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Archivos de Compilación (Producción) ---
+dist/
+build/
+out/
+.cache/
+
+# --- Configuraciones del Editor de Código ---
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# --- Sistema Operativo ---
 .DS_Store
 Thumbs.db
 
-# No versionar credenciales ni configuraciones locales con secretos.
+# --- Variables de Entorno (Datos Sensibles) ---
 .env
 .env.*
 !.env.example
