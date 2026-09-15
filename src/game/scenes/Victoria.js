@@ -45,8 +45,13 @@ export class Victoria extends Scene
     {
         const boton = this.add.rectangle(x, y, 360, 72, 0xffffff).setInteractive({ useHandCursor: true });
         this.add.text(x, y, label, {
-            fontFamily: 'Arial Black', fontSize: 30, color: '#028af8'
+            fontFamily: 'Arial Black', fontSize: 30, color: '#028af8',
+            stroke: '#FFF59D', strokeThickness: 3
         }).setOrigin(0.5);
+        boton.on('pointerover', () => boton.setFillStyle(0x66B8FF));
+        boton.on('pointerout', () => boton.setFillStyle(0xffffff));
+        boton.on('pointerdown', () => boton.setFillStyle(0x0D5A8A));
+        boton.on('pointerup', () => boton.setFillStyle(0x66B8FF));
         boton.on('pointerdown', () => onClick());
         return boton;
     }

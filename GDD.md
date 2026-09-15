@@ -2,7 +2,7 @@
 
 ## Juego y experiencia
 
-- Genero y situacion de juego: Arcade; jugabilidad base implementada y probada, en ajustes de balance y esteticos.
+- Genero y situacion de juego: Arcade; desarrollo completo implementado y probado (jugabilidad base + ajustes de balance y esteticos).
 - Rol del jugador: Control de paleta Izquierda (Jugador 1) o Derecha (Jugador2).
 - Experiencia buscada: Partidas de 1-2 minutos para una experiencia rápida pero divertida, con rejugabilidad.
 
@@ -17,9 +17,9 @@
 ## Comportamiento a resolver
 
 - Problema de diseño: Flujo de partida completo (escenas Menú → Partida → Victoria), en modalidad de 1 jugador contra CPU o de 2 jugadores.
-- Entidad a codificar: Escenas Menú de Inicio, Partida y Menú de Victoria, con paletas, pelota y bloques (aun no programadas).
-- Problema actual: El proyecto está en estado de planificación; solo existe la escena placeholder de la plantilla (`src/game/scenes/Game.js`).
-- Comportamiento esperado: Transitar las tres escenas con las reglas de este GDD; en modo 1 jugador, la CPU controla la paleta derecha siguiendo la pelota a velocidad limitada (factor 0.65x la velocidad del jugador).
+- Entidad implementada: Escenas Menú de Inicio, Partida y Menú de Victoria, con paletas, pelota y bloques.
+- Problema actual: Resuelto. El flujo completo está implementado; quedaron ejecutados los ajustes de balance y estéticos (paso 7).
+- Comportamiento logrado: Transitar las tres escenas con las reglas de este GDD; en modo 1 jugador, la CPU controla la paleta derecha siguiendo la pelota a velocidad limitada (factor 0.50x la velocidad del jugador).
 
 ## Reglas
 
@@ -27,7 +27,10 @@
 °EscenaMenúInicio: ModoDeJuego(1Jugador/2Jugadores); Botón que intercala entre un modo u otro; en base a él, se bloquea o habilita los controles de jugador 2 en Partida.
 °EscenaPartida: Jugadores(1Jugador/2Jugadores); Traspaso de MenúInicio(ModoDeJuego). Ganador(Jugador1/Jugador2/CPU); Decidido al final de Partida, antes de pase de escena.
 °EscenaMenúVictoria: GanadorPartida(Jugador1/Jugador2/CPU); Traspaso de Partida
-°CPU (modo 1 jugador): controla la paleta derecha siguiendo la pelota a velocidad limitada (factor 0.65x la velocidad de movimiento del jugador).
+°CPU (modo 1 jugador): controla la paleta derecha siguiendo la pelota a velocidad limitada (factor 0.50x la velocidad de movimiento del jugador).
+°Velocidad de la pelota: por cada rebote contra una paleta que no destruya un bloque, la velocidad aumenta un 5% (multiplicador x1.05 acumulativo), hasta un máximo del doble de su velocidad inicial; al destruir un bloque el multiplicador se resetea a 1 (velocidad inicial).
+°Paredes tras los bloques: al cruzar el plano de bloques con la palanca tocada, si la pelota coincide con un bloque presente lo destruye; si golpea la posición de un bloque ya destruido, rebota contra la pared en el mismo plano (no se destruye el bloque más cercano).
+°Aspecto de la pelota: cuando `haTocadoPalanca` es falso, la pelota se ve gris claro (#BFBFBF) con 60% de opacidad; al tocar una palanca vuelve al blanco sólido.
 °Traspaso entre escenas: se realiza con la data de inicialización de Phaser (`scene.start(clave, data)`), con las claves `modoDeJuego` (desde el Menú a Partida) y `ganador` (desde Partida a Victoria).
 - Accion del jugador o del entorno: Este posee únicamente control de su paleta hacia arriba y abajo, con los límites establecidos por la escena y/o cámara, con el fín de rebotar la pelota entre él y su adversario.
 - Resultado esperado: Experiencia de juego fluída.

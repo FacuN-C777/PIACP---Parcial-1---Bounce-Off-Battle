@@ -18,7 +18,7 @@ Esta plantilla prepara un repositorio publico e individual para proyectos academ
 y Patrones de Comportamiento.
 - Nombre del proyecto: Bounce-Off Battle.
 - Motor y version: Phaser 4.2.1.
-- Estado: Jugabilidad base completada y probada; siguiente sesión: ajustes de balance y estéticos.
+- Estado: Desarrollo completo: jugabilidad base más ajustes de balance y estéticos implementados, verificados y probados.
 
 ## Descripcion
 
@@ -35,8 +35,8 @@ Paleta Derecha (Jugador 2 || CPU): Teclas Flecha Izquierda y Derecha, para mover
 
 ## Creditos
 
-Todos los assets del juego serán objetos y/o tipografías base proveídas por defecto del motor de Phaser.
+Todos los assets del juego son objetos y tipografías base proveídas por defecto del motor de Phaser.
 
 ## Entrega o demostracion
 
-[Agrega el enlace a una compilacion, video o publicacion cuando la entrega lo requiera.]
+Pendiente (acción del estudiante): agregar aquí el enlace de compilación o publicación cuando se despliegue en Vercel.

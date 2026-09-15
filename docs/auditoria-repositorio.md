@@ -1,5 +1,7 @@
 # Auditoria del repositorio
 
+**Nota de vigencia**: esta auditoria refleja el estado inicial del repositorio (proyecto en planificacion, solo escena placeholder). Las rondas 1-6 implementaron la jugabilidad base y el paso 7 (2026-09-15) los ajustes de balance y esteticos. El estado final y su validacion estan en `docs/evidencia-pruebas.md` e `docs/informe-final.md`.
+
 ## Objetivo
 
 Registrar hechos verificables sobre la estructura, arquitectura y validacion del proyecto antes de proponer cambios.
