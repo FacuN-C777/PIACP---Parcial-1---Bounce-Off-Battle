@@ -18,7 +18,7 @@ Esta plantilla prepara un repositorio publico e individual para proyectos academ
 y Patrones de Comportamiento.
 - Nombre del proyecto: Bounce-Off Battle.
 - Motor y version: Phaser 4.2.1.
-- Estado: Planificación
+- Estado: Jugabilidad base completada y probada; siguiente sesión: ajustes de balance y estéticos.
 
 ## Descripcion
 
