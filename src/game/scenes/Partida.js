@@ -18,7 +18,7 @@ const BLOCK_GAP = 17;
 const BLOCK_X_LEFT = 30;
 const BLOCK_X_RIGHT = W - 30;
 
-const CPU_SPEED = PADDLE_SPEED * 0.65;
+const CPU_SPEED = PADDLE_SPEED * 0.50;
 
 const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
 
@@ -49,6 +49,8 @@ export class Partida extends Scene
         this.crearPelota();
 
         this.haTocadoPalanca = false;
+        this.velocidadMulti = 1;
+        this.actualizarAspectoPelota();
         this.tiempoInicio = this.time.now;
 
         this.textoTiempo = this.add.text(W / 2, 24, '00:00', {
@@ -173,68 +175,99 @@ export class Partida extends Scene
             && this.pelota.y <= paleta.y + PADDLE_HEIGHT / 2 + BALL_RADIUS;
         if (!enRango) return;
 
-        this.vx = (esIzquierda ? 1 : -1) * BALL_SPEED;
+        this.velocidadMulti = Math.min(2, this.velocidadMulti * 1.05);
+        const velocidad = BALL_SPEED * this.velocidadMulti;
+        this.vx = (esIzquierda ? 1 : -1) * velocidad;
         const rel = (this.pelota.y - paleta.y) / (PADDLE_HEIGHT / 2);
-        this.vy = clamp(rel, -1, 1) * 300;
+        this.vy = clamp(rel, -1, 1) * 300 * this.velocidadMulti;
         this.haTocadoPalanca = true;
+        this.actualizarAspectoPelota();
     }
 
     colisionarBloques (prevX)
     {
-        if (this.haTocadoPalanca && this.vx < 0)
+        if (!this.haTocadoPalanca) return;
+
+        if (this.vx < 0)
         {
             const planoIzq = BLOCK_X_LEFT + BLOCK_WIDTH / 2 + BALL_RADIUS;
             if (prevX >= planoIzq && this.pelota.x <= planoIzq)
             {
-                const idx = this.encontrarBloque(this.bloquesIzq, this.pelota.y);
+                const idx = this.encontrarBloqueEnY(this.bloquesIzq, this.pelota.y);
                 if (idx >= 0)
                 {
-                    this.bloquesIzq[idx].destroy();
-                    this.bloquesIzq.splice(idx, 1);
-                    this.haTocadoPalanca = false;
-                    this.vx = Math.abs(this.vx);
+                    this.destruirBloque(this.bloquesIzq, idx);
+                    this.vx = BALL_SPEED;
                     if (this.bloquesIzq.length === 0)
                     {
                         this.terminar(this.modoDeJuego === '2Jugadores' ? 'Jugador 2' : 'CPU');
                     }
                 }
+                else
+                {
+                    this.pelota.x = planoIzq;
+                    this.vx = Math.abs(this.vx);
+                }
             }
         }
-        else if (this.haTocadoPalanca && this.vx > 0)
+        else if (this.vx > 0)
         {
             const planoDer = BLOCK_X_RIGHT - BLOCK_WIDTH / 2 - BALL_RADIUS;
             if (prevX <= planoDer && this.pelota.x >= planoDer)
             {
-                const idx = this.encontrarBloque(this.bloquesDer, this.pelota.y);
+                const idx = this.encontrarBloqueEnY(this.bloquesDer, this.pelota.y);
                 if (idx >= 0)
                 {
-                    this.bloquesDer[idx].destroy();
-                    this.bloquesDer.splice(idx, 1);
-                    this.haTocadoPalanca = false;
-                    this.vx = -Math.abs(this.vx);
+                    this.destruirBloque(this.bloquesDer, idx);
+                    this.vx = -BALL_SPEED;
                     if (this.bloquesDer.length === 0)
                     {
                         this.terminar('Jugador 1');
                     }
                 }
+                else
+                {
+                    this.pelota.x = planoDer;
+                    this.vx = -Math.abs(this.vx);
+                }
             }
         }
     }
 
-    encontrarBloque (bloques, y)
+    destruirBloque (bloques, idx)
     {
-        let mejor = 0;
-        let menorDist = Math.abs(y - bloques[0].y);
-        for (let i = 1; i < bloques.length; i++)
+        bloques[idx].destroy();
+        bloques.splice(idx, 1);
+        this.haTocadoPalanca = false;
+        this.velocidadMulti = 1;
+        this.actualizarAspectoPelota();
+    }
+
+    actualizarAspectoPelota ()
+    {
+        if (this.haTocadoPalanca)
         {
-            const dist = Math.abs(y - bloques[i].y);
-            if (dist < menorDist)
+            this.pelota.setFillStyle(0xffffff);
+            this.pelota.setAlpha(1);
+        }
+        else
+        {
+            this.pelota.setFillStyle(0xbfbfbf);
+            this.pelota.setAlpha(0.6);
+        }
+    }
+
+    encontrarBloqueEnY (bloques, y)
+    {
+        for (let i = 0; i < bloques.length; i++)
+        {
+            const bloque = bloques[i];
+            if (y >= bloque.y - BLOCK_HEIGHT / 2 && y <= bloque.y + BLOCK_HEIGHT / 2)
             {
-                menorDist = dist;
-                mejor = i;
+                return i;
             }
         }
-        return mejor;
+        return -1;
     }
 
     terminar (ganador)

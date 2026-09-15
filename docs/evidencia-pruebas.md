@@ -4,10 +4,20 @@ Relaciona cada criterio de aceptacion con una prueba o secuencia manual que otra
 
 | Criterio | Version validada | Metodo o comando | Pasos | Resultado esperado | Resultado observado | Evidencia |
 |---|---|---|---|---|---|---|
-| [PENDIENTE] | [Commit o version] | [Prueba o comando] | [Pasos reproducibles] | [PENDIENTE] | [PENDIENTE] | [Salida, captura o enlace] |
+| Flujo de escenas | Rama `BalanceYEstetica` (cambios sin commitear) | `npm run build-nolog` + recorrido manual | 1. Menu: "Cantidad de Jugadores" y "Iniciar Partida"; 2. Partida 1J y 2J; 3. destruir la linea de bloques de un bando; 4. Victoria: "Rejugar" y "Volver al Menu" | Tránsito completo Menu → Partida → Victoria → Rejugar/Volver, sin excepciones | Compila OK (solo warning de chunk de Phaser). Recorrido manual declarado correcto por el estudiante | Salida de `npm run build-nolog`; declaración del estudiante en registro de sesion |
+| Nombre del ganador | Ídem | Prueba manual 1J y 2J | Jugar hasta victoria en ambos modos | Texto muestra "Jugador 1", "Jugador 2" o "CPU" según el caso | Correcto para CPU (1J) y Jugador 1/2 (2J), según declaración del estudiante | Declaración del estudiante |
+| Controles y límites | Ídem | Prueba manual + revisión de código | Mover J1 con A/D y J2/CPU con Flechas Izquierda/Derecha | Paletas dentro de los bordes; en 1J la CPU sigue la pelota a 0.50x | Constante `CPU_SPEED = PADDLE_SPEED * 0.50` verificada en `Partida.js:21`; movimiento declarado correcto | Revisión de código + declaración del estudiante |
+| Tiempo de partida | Ídem | Prueba manual + revisión de código | Jugar hasta victoria y leer el texto de Victoria | Formato MM:SS desde el inicio de Partida | `formatoTiempo` produce `MM:SS` (`Partida.js:25`) | Revisión de código + declaración del estudiante |
+| Regla de bloque y contacto | Ídem | Simulación Node + revisión de código | Simular cruces sin `haTocadoPalanca=true` | La pelota traspasa y no rompe bloques | `colisionarBloques` retorna si `haTocadoPalanca` es falso (`Partida.js:187`); simulación confirma la regla | Simulación en Node del modelo de `Partida.js` |
+| Caso limite (pelota atascada) | Ídem | Simulación Node | Rally de paletas "perfectas" y defensor ocioso | Sin estados congelados ni fuera de límites | Rally infinito sin congelarse; la pelota nunca sale de los límites; no oscila dentro de huecos (pared la devuelve) | Simulación en Node (50 corridas por escenario) |
+| Velocidad progresiva (B1) | Ídem | Simulación Node + revisión de código | Contar rebotes de paleta y medir velocidad | +5% acumulativo por rebote, tope 2x de la inicial, reset al destruir bloque | `velocidadMulti` x1.05 con `Math.min(2, ...)` y reset en `destruirBloque`; maxVel ≈ 680 = 2x340 | Simulación en Node + `Partida.js:177,178` |
+| Pared tras bloques (B3) | Ídem | Simulación Node + revisión de código | Cruzar el plano por un hueco con palanca tocada | Rebote en la pared; no se destruye el bloque más cercano | `encontrarBloqueEnY` (rango exacto) seguido de rebote en el plano; la victoria ya exige apuntar con ángulo | Simulación en Node + `Partida.js:194-231` |
+| Estética (E1-E4) | Ídem | Revisión de código + prueba manual | Inspeccionar fondo, botones y pelota en cada escena | Fondo negro; delineado amarillo pastel; hover/pressed; pelota gris al 60% con palanca falsa | `backgroundColor '#000000'` (`main.js:13`); stroke `#FFF59D` y estados hover/pressed en botones; `actualizarAspectoPelota` con `#BFBFBF` + alpha 0.6 | Revisión de código + declaración del estudiante |
+| Error (tecla no asignada) | Ídem | Revisión de código | Presionar teclas fuera de A/D/Flechas en 2J | Sin movimiento ni excepciones | El código solo reacciona a las teclas registradas | Revisión de código |
 
 ## Fallos y limites pendientes
 
-- Reproduccion: [PENDIENTE]
-- Impacto: [PENDIENTE]
-- Decision: [Corregido, pospuesto o escalado.]
+- Reproduccion: con un defensor ocioso que devuelve rebotes casi horizontales, las paredes (B3) permiten un intercambio prolongado; con rebotes perfectamente idénticos el rally puede sostenerse indefinidamente.
+- Impacto: la victoria ya no es automática contra un defensor pasivo; depende de la puntería del jugador. Coherente con el motivo del cambio B3 (no forzar la destrucción del bloque más cercano), pero cambia el ritmo esperado de la partida.
+- Decision: aceptada por el estudiante como efecto buscado; a validar en la percepción durante la prueba manual (declarada como correcta).
+- Sin resolver: enlace de publicación/Vercel en `README.md` (acción exclusiva del estudiante). No hay tests automatizados ni lint en el proyecto; la validación es `npm run build-nolog` + simulación + prueba manual.

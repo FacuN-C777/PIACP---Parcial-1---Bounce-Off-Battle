@@ -15,7 +15,7 @@ Este archivo es un **handoff entre sesiones**. Las rondas anteriores ejecutaron 
 | Lenguaje | JavaScript (ESM) |
 | Empaquetador | Vite (plantilla `phaserjs/template-vite`) |
 | Despliegue | Vercel (enlace pendiente) |
-| Estado declarado | Jugabilidad base completada y probada; siguiente: ajustes de balance y esteticos |
+| Estado declarado | Desarrollo completo: jugabilidad base y ajustes de balance y esteticos implementados y verificados (paso 7 ejecutado el 2026-09-15) |
 | Rama de trabajo | `BalanceYEstetica` (creada desde `BaseFunctionality`, cuyo trabajo esta commiteado) |
 
 ## 3. Reglas obligatorias (AGENTS.md)
@@ -70,7 +70,7 @@ Orden de trabajo documental (de `docs/README.md`): `auditoria-repositorio.md` �
 | 4 | Ajustar matriz de permisos | `docs/matriz-permisos.md` | Revision humana | — | Discrepancia sobre una accion |
 | 5 | Registrar la intervencion | `docs/registro-intervencion.md` | Registro de cada ciclo | — | — |
 | 6 | Implementar el juego | `src/game/scenes/Menu.js`, `Partida.js`, `Victoria.js`; config en `src/game/main.js` | `npm run build-nolog` + simulacion en Node + pruebas manuales | — | Decision de diseno sin definir |
-| 7 | **Ajustes de balance y esteticos (proxima sesion)** | Pendiente de definir por el estudiante: a priori `src/game/scenes/Partida.js` (velocidades, tamanos, CPU), `src/game/scenes/Menu.js` y `Victoria.js` (estetica), posible `public/` (assets) y `src/game/main.js` (color de fondo/escala) | `npm run build-nolog` + pruebas manuales | Cambiar el ritmo puede romper la regla de contacto o el caso limite | Cualquier parametro o valor estetico sin definir por el estudiante |
+| 7 | **Ajustes de balance y esteticos** (ejecutado 2026-09-15) | `src/game/scenes/Partida.js`, `Menu.js`, `Victoria.js`, `src/game/main.js`; detalle y valores en `Plan de Balance y Estética.md` | `npm run build-nolog` + simulacion Node + prueba manual | — | — |
 
 Orden logico de las rondas ya ejecutadas: 1 → 2 → 3 → 4 → 5 → 6. El paso 7 es una nueva ronda que **debe partir preguntando al estudiante el alcance exacto** (que parametros de balance y que cambios esteticos), sin asumir valores.
 
@@ -125,6 +125,8 @@ Pendientes para el paso 7 (definir con el estudiante antes de modificar):
 - Valores de balance a ajustar (velocidad de paletas, velocidad de pelota, factor de CPU, tamanos de paleta/pelota/bloques, etc.).
 - Cambios esteticos deseados (colores, tipografias, fondos, estilo de botones, cronometro, etc.).
 - Enlace de compilacion/publicacion para `README.md` (depende del despliegue en Vercel, accion del estudiante).
+
+Una vez ejecutado (2026-09-15), estos pendientes se resolvieron en `Plan de Balance y Estética.md`: velocidad progresiva de pelota (tope 2x, reset al romper), CPU 0.50x, paredes tras los bloques, fondo negro, delineado amarillo pastel, estados de boton y aspecto de la pelota segun `haTocadoPalanca`.
 
 ## 11. Condiciones de detencion y consulta
 
